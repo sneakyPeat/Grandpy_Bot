@@ -56,6 +56,7 @@ local_settings.py
 # Flask stuff:
 instance/
 .webassets-cache
+config.py
 
 # Scrapy stuff:
 .scrapy
@@ -71,6 +72,10 @@ target/
 
 # pyenv
 .python-version
+
+# pipenv
+Pipfile.lock*
+Pipfile
 
 # celery beat schedule file
 celerybeat-schedule
