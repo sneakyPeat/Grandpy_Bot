@@ -1,23 +1,26 @@
 import json
-import request
-import os
-from io import BytesIO
+import requests
+
+from grandpyapp.GoogleMaps import GoogleMaps
 
 
 class TestGoogleMaps:
+
+    instance = GoogleMaps("OpenClassrooms")
+
     def setup_metod(self):
-        self.query = "OpenClassrooms"
-        self.instance = GoogleMaps(self.query)
         assert isinstance(self.instance, GoogleMaps)
 
-    def test_find_coordinates(self):
+    def test_find_coordinates(self, monkeypatch):
 
-        with open("mock_folder/gmaps_results_mock.json") as mock_file:
+        json_file = "mock_folder/gmaps_results_mock.json"
+        with open(json_file) as mock_file:
             results = json.load(mock_file)
+            print(type(results), "results")
 
-        def mockreturn(request):
-            return BytesIO(json.dumps(results).encode())
+        def mockreturn(get, params):
+            return results
 
-        monkeypatch.setattr(request, 'get', mockreturn)
+        monkeypatch.setattr(requests, 'get', mockreturn)
 
-        assert self.instance.find_coordinates == results
+        assert self.instance.find_coordinates() == result
