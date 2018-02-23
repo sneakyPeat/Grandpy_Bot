@@ -1,5 +1,4 @@
 import requests
-import json
 
 
 class GoogleMaps:
@@ -8,24 +7,26 @@ class GoogleMaps:
     """
 
     def __init__(self, parsed_query):
-        self.parsed_query = parsed_query
+        self._parsed_query = parsed_query
 
         # variable used for API
-        # self.url = app.config['GM_GEOCODING_URL']
-        self.url = 'https://maps.googleapis.com/maps/api/geocode/json?address'
-        self.key = '&key=' + 'AIzaSyDKGJ_R9HNsdkeHiC3W1cIZ8e2e2vzRqAc'
-        # self.key = '&key=' + app.config['GM_GEOCODING_KEY']
+        # self._url = app.config['GM_GEOCODING_URL']
+        self._url = 'https://maps.googleapis.com/maps/api/geocode/json'
+        self._key = 'AIzaSyDKGJ_R9HNsdkeHiC3W1cIZ8e2e2vzRqAc'
+        # self._key = app.config['GM_GEOCODING_KEY']
 
-        self.find_coordinates(self.url)
+        self.find_coordinates()
 
-    def find_coordinates(self, url):
+    def find_coordinates(self):
+        params = {'address': self._parsed_query, 'key': self._key}
+        response = requests.get(self._url, params=params)
 
-        response = requests.get(url, params=self.parsed_query + self.key)
-
-        if response.status_code != requests.code.ok:
+        if response.status_code == requests.codes.ok:
+            response = response.json()
+            print(response.values())
+        else:
             response = response.raise_for_status()
+        return response
 
-        json_response = json.loads(response.read().decode('utf8'))
 
-
-g = GoogleMaps("OpenClassrooms")
+# g = GoogleMaps("OpenClassrooms")
