@@ -1,0 +1,52 @@
+{
+    "batchcomplete": "",
+    "query": {
+        "geosearch": [
+            {
+                "pageid": 5091748,
+                "ns": 0,
+                "title": "Hôtel Bourrienne",
+                "lat": 48.874525,
+                "lon": 2.3511388888889,
+                "dist": 49.3,
+                "primary": ""
+            },
+            {
+                "pageid": 5653202,
+                "ns": 0,
+                "title": "Cité Paradis",
+                "lat": 48.87409,
+                "lon": 2.35064,
+                "dist": 74.5,
+                "primary": ""
+            },
+            {
+                "pageid": 438469,
+                "ns": 0,
+                "title": "Rue d'Hauteville",
+                "lat": 48.874087,
+                "lon": 2.350645,
+                "dist": 74.8,
+                "primary": ""
+            },
+            {
+                "pageid": 6035646,
+                "ns": 0,
+                "title": "Hôtel Botterel de Quintin",
+                "lat": 48.8742,
+                "lon": 2.34989,
+                "dist": 79.3,
+                "primary": ""
+            },
+            {
+                "pageid": 997523,
+                "ns": 0,
+                "title": "Rue des Petites-Écuries (Paris)",
+                "lat": 48.873699,
+                "lon": 2.3511521,
+                "dist": 125.3,
+                "primary": ""
+            }
+        ]
+    }
+}
