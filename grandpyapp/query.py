@@ -1,7 +1,7 @@
 import json
 import string
 
-from .views import app
+from grandpyapp.views import app
 
 
 class Query:
@@ -22,7 +22,7 @@ class Query:
         The query pass to the object Query might be from natural language, therefore it must have some words removed from the query. The file fr.json contains all the stopwords mandatory to remove from the query.
         """
         self.question = self.question.replace("\'", " ")
-        stopwords = self.open_json("fr.json")
+        stopwords = self.open_json("Grandpy_Bot/grandpyapp/data/fr.json")
         translator = str.maketrans('', '', string.punctuation)
         question = self.question.translate(translator).split()
 
