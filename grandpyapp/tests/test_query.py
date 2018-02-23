@@ -1,8 +1,4 @@
-from .. import Query
-
-import json
-
-from io import BytesIO
+from grandpyapp.query import Query
 
 
 class TestQuery:
@@ -17,20 +13,5 @@ class TestQuery:
     def test_parser_method(self):
         """
         Test the parse method in the Query class.
-        It must returned a list of 3 elements.
-        """
-        assert len(self.instance.parse_question()) == 3
-
-    def test_api_gmaps(self, monkeypatch):
-        results = [{
-            "formatted_address": "7 Cité Paradis, 75010 Paris, France",
-            "geometry": {
-                "location": {
-                    "lat": 48.8747578,
-                    "lng": 2.350564700000001
-                },
-            }
-        }]
-
-        def mockreturn(request):
-            return BytesIO(json.dumps(results).encode())
+        It must returned a list of 3 elements  with at at least 1 element"""
+        assert len(self.instance.parse_question()) > 0
