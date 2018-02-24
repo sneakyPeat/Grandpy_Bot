@@ -11,8 +11,19 @@ class WikiMedia:
         self._url = 'https://fr.wikipedia.org/w/api.php?action=query'
 
         r = self.geosearch()
-        p_id = self.find_page_id(r)
-        self.get_content(p_id)
+        self._p_id = self.find_page_id(r)
+        self._extract_json = self.extract_content(self._p_id)
+        self._content = self.get_contents(self._extract_json)
+
+    @property
+    def title(self):
+        return self._title
+    @property
+    def content(self):
+        return self._content
+    @property
+    def page_id(self):
+        return self._p_id
 
     def geosearch(self):
         coordinates = self._latitude + '|' + self._longitude
@@ -23,7 +34,7 @@ class WikiMedia:
                     'format' : 'json',
                     'formatversion' : 2 # UTF8
                     }
-        response = requests.get(url=self._url, params=params)
+        response = requests.get(self._url, params=params)
 
         if response.status_code == requests.codes.ok:
             response = response.json()
@@ -38,9 +49,14 @@ class WikiMedia:
             if response["query"]["geosearch"][ind]["title"] == self._title:
                 page_id = response["query"]["geosearch"][ind]["pageid"]
             ind += 1
+
+        # if query has not the same title, take the closest position
+        if page_id == 0:
+            page_id = response["query"]["geosearch"][0]["pageid"]
+            self._title = response["query"]["geosearch"][0]["title"]
         return page_id
 
-    def get_content(self, p_id):
+    def extract_content(self, p_id):
         params = { "pageids" : p_id,
                    "prop" : "extracts",
                    "exintro" : 1, # intro
@@ -51,10 +67,9 @@ class WikiMedia:
 
         if resp.status_code == requests.codes.ok:
             resp = resp.json()
-            resp = resp["query"]["pages"][0]["extract"]
         else:
             resp = resp.raise_for_status()
         return resp
 
-
-# w = WikiMedia(48.8747578, 2.350564700000001, "Cité Paradis")
+    def get_contents(self, extracts_json):
+        return extracts_json["query"]["pages"][0]["extract"]
