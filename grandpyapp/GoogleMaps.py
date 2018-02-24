@@ -15,7 +15,25 @@ class GoogleMaps:
         self._key = 'AIzaSyDKGJ_R9HNsdkeHiC3W1cIZ8e2e2vzRqAc'
         # self._key = app.config['GM_GEOCODING_KEY']
 
-        self.find_coordinates()
+        coord = self.find_coordinates()
+
+        self._title = coord["results"][0]["address_components"][1]["long_name"]
+        self._address = coord["results"][0]["formatted_address"]
+        self._lat = coord["results"][0]["geometry"]["location"]["lat"]
+        self._lng = coord["results"][0]["geometry"]["location"]["lng"]
+
+    @property
+    def title(self):
+        return self._title
+    @property
+    def address(self):
+        return self._address
+    @property
+    def latitude(self):
+        return self._lat
+    @property
+    def longitude(self):
+        return self._lng
 
     def find_coordinates(self):
         params = {'address': self._parsed_query, 'key': self._key}
@@ -23,10 +41,6 @@ class GoogleMaps:
 
         if response.status_code == requests.codes.ok:
             response = response.json()
-            print(response.values())
         else:
             response = response.raise_for_status()
         return response
-
-
-# g = GoogleMaps("OpenClassrooms")
