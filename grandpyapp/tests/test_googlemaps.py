@@ -10,14 +10,17 @@ class TestGoogleMaps:
     def setup_metod(self):
         assert isinstance(self.instance, GoogleMaps)
 
+    def test_title(self):
+        assert hasattr(self.instance, 'title') == True
+
     def test_latitude(self):
-        assert self.instance.hasattr('latitude') == True
+        assert hasattr(self.instance, 'latitude') == True
 
     def test_longitude(self):
-        assert self.instance.hasattr('longitude') == True
+        assert hasattr(self.instance, 'longitude') == True
 
-    def test_adresse(self):
-        assert self.instance.hasattr('adress') == True
+    def test_address(self):
+        assert hasattr(self.instance, 'address') == True
 
     def test_find_coordinates(self, monkeypatch):
 

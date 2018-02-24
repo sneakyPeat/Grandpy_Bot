@@ -23,11 +23,14 @@ class TestWikiMedia:
     def setup_metod(self):
         assert isinstance(instance, WikiMedia)
 
+    def test_title(self):
+        assert hasattr(self.instance, 'title') == True
+
     def test_page_id(self):
-        assert self.instance.hasattr('page_id') == True
+        assert hasattr(self.instance, 'page_id') == True
 
     def test_page_content(self):
-        assert self.instance.hasattr('page_content') == True
+        assert hasattr(self.instance, 'content') == True
 
     def test_geosearch(self, monkeypatch):
 
