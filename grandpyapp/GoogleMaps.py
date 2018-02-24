@@ -38,7 +38,7 @@ class GoogleMaps:
     def find_coordinates(self):
         params = {'address': self._parsed_query, 'key': self._key}
         response = requests.get(self._url, params=params)
-
+        # print(response.url)
         if response.status_code == requests.codes.ok:
             response = response.json()
         else:
