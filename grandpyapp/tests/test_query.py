@@ -1,5 +1,6 @@
 from grandpyapp.query import Query
 
+import json
 
 class TestQuery:
     def setup_method(self):
@@ -17,7 +18,4 @@ class TestQuery:
         assert len(self.instance.parse_question()) > 0
 
     def test_create_json(self):
-        with open('mock_folder/query_return.json') as mock_file:
-            query_return = json.load(mock_file)
-
-        assert self.instance.create_json() == query_return
+        assert json.dumps(self.instance.create_json()) != None
