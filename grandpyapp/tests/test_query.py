@@ -15,3 +15,9 @@ class TestQuery:
         Test the parse method in the Query class.
         It must returned a list of 3 elements  with at at least 1 element"""
         assert len(self.instance.parse_question()) > 0
+
+    def test_create_json(self):
+        with open('mock_folder/query_return.json') as mock_file:
+            query_return = json.load(mock_file)
+
+        assert self.instance.create_json() == query_return
