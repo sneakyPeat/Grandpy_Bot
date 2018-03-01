@@ -5,6 +5,8 @@ import string
 #from wikimedia import WikiMedia
 from grandpyapp.GoogleMaps import GoogleMaps
 from grandpyapp.wikimedia import WikiMedia
+
+
 class Query:
     """
     This class intend to manipulate the query from the user.
@@ -16,14 +18,13 @@ class Query:
         The query is a string object.
         """
         self.question = question
-        self.create_json()
 
     def parse_question(self):
         """
         The query pass to the object Query might be from natural language, therefore it must have some words removed from the query. The file fr.json contains all the stopwords mandatory to remove from the query.
         """
         self.question = self.question.replace("\'", " ")
-        json_file = '../data/fr.json'
+        json_file = 'grandpyapp/data/fr.json'
         with open(json_file) as json_data:
             stopwords = json.load(json_data)
 
@@ -36,38 +37,21 @@ class Query:
                     question.remove(word)
         return question
 
-    def create_json(self):
+    def collect_data(self):
         url = "http://fr.wikipedia.org/?curid="
-        json_data = {
-        "query" : "",
-        "google_api" : {
-            "address" : "",
-            "lat" : "",
-            "lng" : ""
-            },
-        "wikimedia_api" : {
-            "title" : "",
-            "content" : "",
-            "wiki_link" : ""
-            }
-        }
+        data = {}
 
         parse_question = self.parse_question()
-        json_data["query"] = self.question
+        data["query"] = self.question
 
         gm = GoogleMaps(parse_question)
-        json_data['google_api']['address'] = gm.address
-        json_data['google_api']['lat'] = gm.latitude
-        json_data['google_api']['lng'] = gm.longitude
-        title = gm.title
+        data['address'] = gm.address
+        data['lat'] = gm.latitude
+        data['lng'] = gm.longitude
 
-        wk =WikiMedia(gm.latitude, gm.longitude, gm.title)
-        json_data['wikimedia_api']['title'] = wk.title
-        json_data['wikimedia_api']['content'] = wk.content
-        json_data['wikimedia_api']['wiki_link'] = url + str(wk.page_id)
+        wk = WikiMedia(gm.latitude, gm.longitude, gm.title)
+        data['title'] = wk.title
+        data['content'] = wk.content
+        data['wiki_link'] = url + str(wk.page_id)
 
-        json_str = json.dumps(json_data, indent=4, sort_keys=True,
-                      separators=(',', ': '), ensure_ascii=False)
-        json_data = json.loads(json_str)
-
-        return json_data
+        return data
