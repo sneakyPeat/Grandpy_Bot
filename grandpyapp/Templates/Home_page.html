@@ -2,9 +2,22 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <!-- CDN -->
         <link rel="stylesheet" href=" https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://use.fontawesome.com/470b91f216.js"></script>
+
+        <!-- CSS -->
         <link rel="stylesheet" href="{{ url_for ('static', filename='../static/css/style.css') }}" />
+
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+        <!-- GoogleMaps -->
+        <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbiFnijXZAUEiWOUjQqtweb46RndQag40&callback=initMap">
+        </script>
+
         <title>GrandPy-Bot</title>
     </head>
 
@@ -13,8 +26,8 @@
     <header>
         <div class="jumbotron">
             <div class="row">
-                <div class="col-lg-2">
-                    <img src="../static/img/grandpy.png" width="150" height="150" />
+                <div class="col-lg-2 d-none d-lg-block">
+                    <img src="../static/img/grandpy.png" width="150" height="150"/>
                 </div>
                 <div class="col-lg-10">
                     <h1> Welcome to GrandPyBot ! </h1>
@@ -31,13 +44,32 @@
         <div class="col-lg-12 text-center v-center">
           <form class="col-lg-12">
             <div class="input-group">
-              <input type="text" class="center-block form-control input-lg" title="Ask me somehting." placeholder="Ask me anything !">
-              <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="button">OK</button></span>
+                <form class="" action="index.html" method="post">
+                    <input type="text" class="center-block form-control input-lg" title="Ask me somehting." placeholder="Ask me anything !" id="query"/>
+                    <span class="input-group-btn"><button class="btn btn-lg btn-primary" type="submit">OK</button></span>
+                </form>
             </div>
           </form>
         </div>
       </div> <!-- /row -->
     </div>
+
+    <!-- answer -->
+    <div class="answer">
+        <div class="container">
+            <div class="col-lg-12 text-center v-center">
+                <br>
+                <p class="grandpy_answer"></p>
+                <div id="map"></div><br>
+                <h4></h4><br>
+                <p class="wiki"></p>
+                <a class="wiki_link" href="#"></a><br><br>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- end answer -->
 
     <footer>
         <div class="text-center">
