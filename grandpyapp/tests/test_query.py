@@ -2,6 +2,7 @@ from grandpyapp.query import Query
 
 import json
 
+
 class TestQuery:
     def setup_method(self):
         """
@@ -17,5 +18,5 @@ class TestQuery:
         It must returned a list of 3 elements  with at at least 1 element"""
         assert len(self.instance.parse_question()) > 0
 
-    def test_create_json(self):
-        assert json.dumps(self.instance.create_json()) != None
+    def test_collect_data(self):
+        assert isinstance(self.instance.create_json(), dict)
