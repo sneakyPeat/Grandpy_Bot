@@ -56,7 +56,7 @@ local_settings.py
 # Flask stuff:
 instance/
 .webassets-cache
-config.py
+.idea
 
 # Scrapy stuff:
 .scrapy
@@ -108,3 +108,5 @@ ENV/
 
 # Pytest
 .pytest_cache*
+grandpyapp/tests/mock_folder/query_return.json
+grandpyapp/tests/mock_folder/query_return.json
