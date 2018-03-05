@@ -11,16 +11,16 @@ class TestGoogleMaps:
         assert isinstance(self.instance, GoogleMaps)
 
     def test_title(self):
-        assert hasattr(self.instance, 'title') == True
+        assert isinstance(self.instance.title, str)
 
     def test_latitude(self):
-        assert hasattr(self.instance, 'latitude') == True
+        assert isinstance(self.instance.latitude, int)
 
     def test_longitude(self):
-        assert hasattr(self.instance, 'longitude') == True
+        assert isinstance(self.instance.longitude, int)
 
     def test_address(self):
-        assert hasattr(self.instance, 'address') == True
+        assert isinstance(self.instance.address, str)
 
     def test_find_coordinates(self, monkeypatch):
 

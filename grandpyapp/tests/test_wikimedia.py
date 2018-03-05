@@ -24,16 +24,15 @@ class TestWikiMedia:
         assert isinstance(instance, WikiMedia)
 
     def test_title(self):
-        assert hasattr(self.instance, 'title') == True
+        assert isinstance(self.instance.title, str)
 
     def test_page_id(self):
-        assert hasattr(self.instance, 'page_id') == True
+        assert isinstance(self.instance.page_id, int)
 
     def test_page_content(self):
-        assert hasattr(self.instance, 'content') == True
+        assert isinstance(self.instance.content, str)
 
     def test_geosearch(self, monkeypatch):
-
         def mockreturn(get, params):
             mockreturn = requests.Response()
             mockreturn.status_code = 200
@@ -45,10 +44,10 @@ class TestWikiMedia:
         assert self.instance.geosearch() == self._geosearch_json
 
     def test_find_page_id(self):
-        assert isinstance(self.instance.find_page_id(self._geosearch_json), int)
+        assert isinstance(
+            self.instance.find_page_id(self._geosearch_json), int)
 
     def test_extract_content(self, monkeypatch):
-
         def mockreturn(get, params):
             mockreturn = requests.Response()
             mockreturn.status_code = 200
