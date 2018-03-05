@@ -2,43 +2,54 @@ $(document).ready(function() {
     $('form').on('submit', function(event) {
 
         $.ajax({
-            url: '/',
+            url: '/ajax',
             type: 'POST',
             dataType: 'json',
             data: {query: $('#query').val()},
             success:function(response){
-                console.log(response)
                 displayAjax(response);
+                console.log(response)
             }
+
         })
-
         event.preventDefault();
-
     });
 });
 
 function displayAjax(response) {
-    var r_answer = random_answer()
-    var address = response.json.address
-    var latitude = response.json.lat
-    var longitude = response.json.lng
-    var title = response.json.title
-    var closest_thing_str = "La chose la plus proche que je connaisse est : "
-    var content = response.json.content
-    var url_content = response.json.wiki_link
-    // show the map
-    document.getElementById('map').style.display = 'block';
+    var r_answer = random_answer();
+    var query = response.json.query;
+    var address = response.json.address;
+    var latitude = response.json.lat;
+    var longitude = response.json.lng;
+    var title = response.json.title;
+    var closest_thing_str = "La chose la plus proche que je connaisse est : ";
+    var content = response.json.content;
+    var url_content = response.json.wiki_link;
+    var error = "Désolé, mais je n'ai rien trouvé pour cette question. &#9785";
 
-    // display the adress
-    $('.grandpy_answer').html(r_answer + address)
+    console.log(address)
+    if (query === "Empty") {
+        $('.answer h4').html(error);
+        $('p.grandpy_answer').html('');
+        document.getElementById('map').style.display = 'none';
+        $('.wiki').html('');
+        $('.wiki_link').attr('href', url_content).html('');
+    } else {
+        // show the map
+        document.getElementById('map').style.display = 'block';
 
-    // init the map
-    initMap(latitude, longitude);
+        // display the adress
+        $('.grandpy_answer').html(r_answer + address);
 
-    // wikipedia info
-    $('.answer h4').html(closest_thing_str + title)
-    $('.wiki').html(content)
-    $('.wiki_link').attr('href', url_content).html("En savoir plus sur wikipedia ...")
+        // init the map
+        initMap(latitude, longitude);
+
+        // wikipedia info
+        $('.answer h4').html(closest_thing_str + title);
+        $('.wiki').html(content);
+        $('.wiki_link').attr('href', url_content).html("En savoir plus sur wikipedia ...");
+    }
 };
 
 function random_answer() {
@@ -46,7 +57,7 @@ function random_answer() {
                   "Ah je me rappel très bien de cet endroit ",
                   "A cet endroit, je me souviens : ",
                   "Il y a bien longtemps que je ne suis pas allé ici : "
-                 ]
+              ];
 
     var random_number = Math.floor(Math.random() * answer.length);
 
