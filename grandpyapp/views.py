@@ -1,8 +1,6 @@
-from flask import Flask, render_template, jsonify, request
+from flask import render_template, jsonify, request
 from grandpyapp.query import Query
 from grandpyapp.start import app
-
-app = Flask(__name__)
 
 
 @app.route('/')

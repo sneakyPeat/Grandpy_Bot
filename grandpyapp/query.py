@@ -33,9 +33,8 @@ class Query:
         data = {}
 
         parse_question = self.parse_question()
-        print(parse_question)
+
         if not parse_question:
-            print('Empty')
             data["query"] = "Empty"
         else:
             data["query"] = self.question

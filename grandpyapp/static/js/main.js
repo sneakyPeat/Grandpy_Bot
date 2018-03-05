@@ -26,7 +26,7 @@ function displayAjax(response) {
     var closest_thing_str = "La chose la plus proche que je connaisse est : ";
     var content = response.json.content;
     var url_content = response.json.wiki_link;
-    var error = "Désolé, mais je n'ai rien trouvé pour cette question. &#9785";
+    var error = "Désolé, mais je n'ai rien trouvé ... &#9785";
 
     console.log(address)
     if (query === "Empty") {
