@@ -1,4 +1,5 @@
 import requests
+from grandpyapp.start import app
 
 
 class GoogleMaps:
@@ -10,10 +11,8 @@ class GoogleMaps:
         self._parsed_query = parsed_query
 
         # variable used for API
-        # self._url = app.config['GM_GEOCODING_URL']
         self._url = 'https://maps.googleapis.com/maps/api/geocode/json'
-        self._key = 'AIzaSyDKGJ_R9HNsdkeHiC3W1cIZ8e2e2vzRqAc'
-        # self._key = app.config['GM_GEOCODING_KEY']
+        self._key = app.config['GM_GEOCODING_KEY']
 
         coord = self.find_coordinates()
 
@@ -25,12 +24,15 @@ class GoogleMaps:
     @property
     def title(self):
         return self._title
+
     @property
     def address(self):
         return self._address
+
     @property
     def latitude(self):
         return self._lat
+
     @property
     def longitude(self):
         return self._lng
@@ -38,7 +40,7 @@ class GoogleMaps:
     def find_coordinates(self):
         params = {'address': self._parsed_query, 'key': self._key}
         response = requests.get(self._url, params=params)
-        # print(response.url)
+
         if response.status_code == requests.codes.ok:
             response = response.json()
         else:
