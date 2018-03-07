@@ -15,8 +15,8 @@ class TestQuery:
     def test_parser_method(self):
         """
         Test the parse method in the Query class.
-        It must returned a list of 3 elements  with at at least 1 element"""
-        assert len(self.instance.parse_question()) > 0
+        It must returned at least 1 element"""
+        assert len(self.instance.parse_question()) == 3
 
     def test_collect_data(self):
-        assert isinstance(self.instance.create_json(), dict)
+        assert isinstance(self.instance.collect_data(), dict)

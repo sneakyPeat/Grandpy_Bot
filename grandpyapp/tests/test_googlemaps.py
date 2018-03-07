@@ -14,17 +14,17 @@ class TestGoogleMaps:
         assert isinstance(self.instance.title, str)
 
     def test_latitude(self):
-        assert isinstance(self.instance.latitude, int)
+        assert isinstance(self.instance.latitude, float)
 
     def test_longitude(self):
-        assert isinstance(self.instance.longitude, int)
+        assert isinstance(self.instance.longitude, float)
 
     def test_address(self):
         assert isinstance(self.instance.address, str)
 
     def test_find_coordinates(self, monkeypatch):
 
-        json_file = "mock_folder/gmaps_results_mock.json"
+        json_file = "grandpyapp/tests/mock_folder/gmaps_results_mock.json"
         with open(json_file) as mock_file:
             results = json.load(mock_file)
 

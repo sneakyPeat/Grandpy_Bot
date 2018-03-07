@@ -12,11 +12,11 @@ class TestWikiMedia:
 
     instance = WikiMedia(latitude, longitude, title)
 
-    geosearch_file = 'mock_folder/wikimedia_geosearch_mock.json'
+    geosearch_file = 'grandpyapp/tests/mock_folder/wikimedia_geosearch_mock.json'
     with open(geosearch_file) as mock_file:
         _geosearch_json = json.load(mock_file)
 
-    extract_file = 'mock_folder/wikimedia_extracts_mock.json'
+    extract_file = 'grandpyapp/tests/mock_folder/wikimedia_extracts_mock.json'
     with open(extract_file) as mock_file:
         _extract_json = json.load(mock_file)
 
