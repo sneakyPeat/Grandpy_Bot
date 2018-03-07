@@ -48,7 +48,9 @@ function displayAjax(response) {
             $(".wiki").html(content);
             $(".wiki_link").attr("href", url_content).html("En savoir plus sur wikipedia ...");
         } else {
-            $(".wiki").html("Je ne connais rien à propos de cet endroit ...");
+            $("h4").html("").addClass('text-center');
+            $(".wiki").html("Je ne connais rien à propos de cet endroit ...").addClass('text-center');
+            $(".wiki_link").attr("href", "").html("");
         }
     }
 }
@@ -66,7 +68,7 @@ function random_answer() {
 }
 
 function initMap(latitude, longitude) {
-    var coord = {lat: latitude, lng: longitude};
+    var coord = new google.maps.LatLng(latitude, longitude);
     var map = new google.maps.Map(document.getElementById("map"), {
       zoom: 10,
       center: coord
