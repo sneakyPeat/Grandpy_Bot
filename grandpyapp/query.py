@@ -45,8 +45,11 @@ class Query:
             data['lng'] = gm.longitude
 
             wk = WikiMedia(gm.latitude, gm.longitude, gm.title)
-            data['title'] = wk.title
-            data['content'] = wk.content
-            data['wiki_link'] = url + str(wk.page_id)
+            if wk.content == "nothing found":
+                data['content'] = wk.content
+            else:
+                data['title'] = wk.title
+                data['content'] = wk.content
+                data['wiki_link'] = url + str(wk.page_id)
 
         return data
