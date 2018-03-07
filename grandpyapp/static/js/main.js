@@ -1,17 +1,15 @@
 $(document).ready(function() {
-    $('form').on('submit', function(event) {
+    $("form").on("submit", function(event) {
 
         $.ajax({
-            url: '/ajax',
-            type: 'POST',
-            dataType: 'json',
-            data: {query: $('#query').val()},
+            url: "/ajax",
+            type: "POST",
+            dataType: "json",
+            data: {query: $("#query").val()},
             success:function(response){
                 displayAjax(response);
-                console.log(response)
             }
-
-        })
+        });
         event.preventDefault();
     });
 });
@@ -28,29 +26,32 @@ function displayAjax(response) {
     var url_content = response.json.wiki_link;
     var error = "Désolé, mais je n'ai rien trouvé ... &#9785";
 
-    console.log(address)
     if (query === "Empty") {
-        $('.answer h4').html(error);
-        $('p.grandpy_answer').html('');
-        document.getElementById('map').style.display = 'none';
-        $('.wiki').html('');
-        $('.wiki_link').attr('href', url_content).html('');
+        $(".answer h4").html(error);
+        $("p.grandpy_answer").html("");
+        document.getElementById("map").style.display = "none";
+        $(".wiki").html("");
+        $(".wiki_link").attr("href", url_content).html("");
     } else {
         // show the map
-        document.getElementById('map').style.display = 'block';
+        document.getElementById("map").style.display = "block";
 
         // display the adress
-        $('.grandpy_answer').html(r_answer + address);
+        $(".grandpy_answer").html(r_answer + address);
 
         // init the map
         initMap(latitude, longitude);
 
-        // wikipedia info
-        $('.answer h4').html(closest_thing_str + title);
-        $('.wiki').html(content);
-        $('.wiki_link').attr('href', url_content).html("En savoir plus sur wikipedia ...");
+        if (content != "nothing found") {
+            // wikipedia info
+            $(".answer h4").html(closest_thing_str + title);
+            $(".wiki").html(content);
+            $(".wiki_link").attr("href", url_content).html("En savoir plus sur wikipedia ...");
+        } else {
+            $(".wiki").html("Je ne connais rien à propos de cet endroit ...");
+        }
     }
-};
+}
 
 function random_answer() {
     var answer = ["Bien sûr mon poussin ! La voici : ",
@@ -62,11 +63,11 @@ function random_answer() {
     var random_number = Math.floor(Math.random() * answer.length);
 
     return answer[random_number];
-};
+}
 
 function initMap(latitude, longitude) {
     var coord = {lat: latitude, lng: longitude};
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById("map"), {
       zoom: 10,
       center: coord
     });
@@ -74,5 +75,5 @@ function initMap(latitude, longitude) {
       position: coord,
       map: map
     });
-    return map
-};
+    return map;
+}
